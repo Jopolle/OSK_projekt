@@ -1,0 +1,138 @@
+﻿namespace blackjack
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            InicjalizujTalie();
+            rozdaj();
+        }
+        private void InicjalizujTalie()
+        {
+            talia = new List<Karta>();
+            string[] kolory = { "spades", "clubs", "hearts", "diamonds" };
+            string[] wartosci = { "ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king" };
+            int[] punkty = { 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
+
+            foreach (var kolor in kolory)
+            {
+                for (int i = 0; i < wartosci.Length; i++)
+                {
+                    talia.Add(new Karta(kolor, wartosci[i], punkty[i]));
+                }
+            }
+        }
+        private int Shuffle()
+        {
+            Random rng = new Random();
+            return rng.Next(0, 52);
+
+        }
+        private void update()
+        {
+            this.label_value.Text = "Hand value: " + this.hand_score.ToString();
+        }
+        private void rozdaj()
+        {
+            Karta k1 = talia[Shuffle()];
+            Karta k2 = talia[Shuffle()];
+            Karta d1 = talia[Shuffle()];
+            zeruj();
+
+
+            this.player3.Image = null;
+            this.player4.Image = null;
+            this.player5.Image = null;
+            this.player6.Image = null;
+
+            this.dealer3.Image = null;
+            this.dealer4.Image = null;
+            this.dealer5.Image = null;
+            this.dealer6.Image = null;
+
+
+
+            this.player1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k1.ToStringName());
+            this.hand_score += k1.Punkty;
+            this.card_counter++;
+            this.player2.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k2.ToStringName());
+            this.hand_score += k2.Punkty;
+            this.card_counter++;
+
+
+            this.dealer2.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + d1.ToStringName());
+            this.dealer_score += d1.Punkty;
+            this.dealer1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\rewers.png");
+            update();
+        }
+        private void zeruj()
+        {
+            this.card_counter = 0;
+            this.hand_score = 0;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void hit_button_Click(object sender, EventArgs e)
+        {
+            Karta k = talia[Shuffle()];
+            switch (card_counter)
+            {
+                case 2:
+                    this.player3.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+                    this.hand_score += k.Punkty;
+                    card_counter++;
+                    break;
+                case 3:
+                    this.player4.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+                    this.hand_score += k.Punkty;
+                    card_counter++;
+                    break;
+                case 4:
+                    this.player5.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+                    this.hand_score += k.Punkty;
+                    card_counter++;
+                    break;
+                case 5:
+                    this.player6.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+                    this.hand_score += k.Punkty;
+                    card_counter++;
+                    break;
+
+            }
+
+            //this.player1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+            update();
+            //this.label_score.Text = "Karta wywołana to: " + talia[34].ToString();
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deal_Click(object sender, EventArgs e)
+        {
+            rozdaj();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
