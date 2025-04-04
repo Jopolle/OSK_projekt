@@ -20,6 +20,6 @@ public class Karta
 
     public string ToStringName()
     {
-        return $"{Wartosc}_of_{Kolor}.png";
+        return $"{Wartosc}_of_{Kolor}";
     }
 }

@@ -51,19 +51,26 @@
             this.dealer5.Image = null;
             this.dealer6.Image = null;
 
-
-
-            this.player1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k1.ToStringName());
+            //
+            //this.dealer1.Image = (Image)Properties.Resources.ResourceManager.GetObject(k1.ToStringName());
+            //this.player1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k1.ToStringName());
+            this.player1.Image = (Image)Properties.Resources.ResourceManager.GetObject(k1.ToStringName());
             this.hand_score += k1.Punkty;
             this.card_counter++;
-            this.player2.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k2.ToStringName());
+            //this.player2.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k2.ToStringName());
+            this.player2.Image = (Image)Properties.Resources.ResourceManager.GetObject(k2.ToStringName());
+
             this.hand_score += k2.Punkty;
             this.card_counter++;
 
 
-            this.dealer2.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + d1.ToStringName());
+            //this.dealer2.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + d1.ToStringName());
+            this.dealer2.Image = (Image)Properties.Resources.ResourceManager.GetObject(d1.ToStringName());
+
             this.dealer_score += d1.Punkty;
-            this.dealer1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\rewers.png");
+            //this.dealer1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\rewers.png");
+            this.dealer1.Image = Properties.Resources.rewers;
+
             update();
         }
         private void zeruj()
@@ -88,22 +95,27 @@
             switch (card_counter)
             {
                 case 2:
-                    this.player3.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+                    //this.player3.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+                    this.player3.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                     this.hand_score += k.Punkty;
                     card_counter++;
                     break;
                 case 3:
-                    this.player4.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+                    //this.player4.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+                    this.player4.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
+
                     this.hand_score += k.Punkty;
                     card_counter++;
                     break;
                 case 4:
-                    this.player5.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+                    //this.player5.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+                    this.player5.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                     this.hand_score += k.Punkty;
                     card_counter++;
                     break;
                 case 5:
-                    this.player6.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+                    //this.player6.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+                    this.player6.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                     this.hand_score += k.Punkty;
                     card_counter++;
                     break;
