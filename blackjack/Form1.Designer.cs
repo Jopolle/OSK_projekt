@@ -7,14 +7,18 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
         private List<Karta> talia;
-        private bool dealer_on = true;
+        private List<Karta> reka;
+        private bool dealer_on = false;
         private int timer_counter = 0;
         private int points = 100;
-        private int bet_size = 0;
+        public int bet_size = 0;
         private int card_counter = 0;
         private int dealer_counter = 0;
         private int hand_score = 0;
         private int dealer_score = 0;
+        private bool win_lose = false;
+        private int bet = 0;
+
         /// <summary>
         ///  Clean up any resources being used.
         /// </summary>
