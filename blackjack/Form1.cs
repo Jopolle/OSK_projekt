@@ -55,6 +55,9 @@
             this.dealer5.Image = null;
             this.dealer6.Image = null;
 
+
+            reka.Add(k1);
+            reka.Add(k2);
             //
             //this.dealer1.Image = (Image)Properties.Resources.ResourceManager.GetObject(k1.ToStringName());
             //this.player1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k1.ToStringName());
@@ -85,11 +88,14 @@
             this.dealer_score = 0;
             this.dealer_counter = 0;
             this.bet_size = 0;
+            this.bet = 0;
             this.textBox1.Text = null;
             this.timer_counter = 0;
             this.label_err.Hide();
             this.label_bet_err.Hide();
             this.timer1.Stop();
+            this.button1.Show();
+            this.reka.Clear();
             update();
         }
 
@@ -106,6 +112,7 @@
 
         private void hit_button_Click(object sender, EventArgs e)
         {
+            this.button1.Hide();
             this.label_bet_err.Hide();
             if (bet_size > 0 && dealer_on!)
             {
@@ -118,6 +125,7 @@
                         this.player3.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                         this.hand_score += k.Punkty;
                         card_counter++;
+                        reka.Add(k);
                         break;
                     case 3:
                         //this.player4.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
@@ -125,18 +133,21 @@
 
                         this.hand_score += k.Punkty;
                         card_counter++;
+                        reka.Add(k);
                         break;
                     case 4:
                         //this.player5.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
                         this.player5.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                         this.hand_score += k.Punkty;
                         card_counter++;
+                        reka.Add(k);
                         break;
                     case 5:
                         //this.player6.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
                         this.player6.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                         this.hand_score += k.Punkty;
                         card_counter++;
+                        reka.Add(k);
                         break;
 
                 }
@@ -153,6 +164,10 @@
                 Form2 noweOkno = new Form2(this);
                 noweOkno.ShowDialog();
             }
+            //else if (reka.Contains())
+            //{
+
+            //}
             //this.label_score.Text = "Karta wywołana to: " + talia[34].ToString();
         }
 
@@ -178,45 +193,50 @@
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (dealer_score < 16) {
-                Karta d = talia[Shuffle()];
-                switch (this.timer_counter)
-                {
-                    case 1:
-                        this.dealer1.Image = (Image)Properties.Resources.ResourceManager.GetObject(d.ToStringName());
-                        this.dealer_score += d.Punkty;
-                        this.dealer_counter++;
-                        this.timer_counter = 2;
-                        break;
-                    case 2:
-                        this.dealer3.Image = (Image)Properties.Resources.ResourceManager.GetObject(d.ToStringName());
-                        this.dealer_score += d.Punkty;
-                        this.dealer_counter++;
-                        this.timer_counter = 3;
-                        break;
-                    case 3:
-                        this.dealer4.Image = (Image)Properties.Resources.ResourceManager.GetObject(d.ToStringName());
-                        this.dealer_score += d.Punkty;
-                        this.dealer_counter++;
-                        this.timer_counter = 4;
-                        break;
-                    case 4:
-                        this.dealer5.Image = (Image)Properties.Resources.ResourceManager.GetObject(d.ToStringName());
-                        this.dealer_score += d.Punkty;
-                        this.dealer_counter++;
-                        this.timer_counter = 5;
-                        break;
-                    case 5:
-                        this.dealer6.Image = (Image)Properties.Resources.ResourceManager.GetObject(d.ToStringName());
-                        this.dealer_score += d.Punkty;
-                        this.dealer_counter++;
-                        this.timer_counter = 6;
-                        break;
-                } 
-            }
-            else
+            if (this.dealer_on)
             {
-
+                if (dealer_score < 16)
+                {
+                    Karta d = talia[Shuffle()];
+                    switch (this.timer_counter)
+                    {
+                        case 1:
+                            this.dealer1.Image = (Image)Properties.Resources.ResourceManager.GetObject(d.ToStringName());
+                            this.dealer_score += d.Punkty;
+                            this.dealer_counter++;
+                            this.timer_counter = 2;
+                            break;
+                        case 2:
+                            this.dealer3.Image = (Image)Properties.Resources.ResourceManager.GetObject(d.ToStringName());
+                            this.dealer_score += d.Punkty;
+                            this.dealer_counter++;
+                            this.timer_counter = 3;
+                            break;
+                        case 3:
+                            this.dealer4.Image = (Image)Properties.Resources.ResourceManager.GetObject(d.ToStringName());
+                            this.dealer_score += d.Punkty;
+                            this.dealer_counter++;
+                            this.timer_counter = 4;
+                            break;
+                        case 4:
+                            this.dealer5.Image = (Image)Properties.Resources.ResourceManager.GetObject(d.ToStringName());
+                            this.dealer_score += d.Punkty;
+                            this.dealer_counter++;
+                            this.timer_counter = 5;
+                            break;
+                        case 5:
+                            this.dealer6.Image = (Image)Properties.Resources.ResourceManager.GetObject(d.ToStringName());
+                            this.dealer_score += d.Punkty;
+                            this.dealer_counter++;
+                            this.timer_counter = 6;
+                            break;
+                    }
+                }
+                else 
+                {
+                    timer1.Stop();
+                    check_win();
+                }
             }
             update();
 
@@ -229,9 +249,10 @@
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            bet_size = Int32.Parse(this.textBox1.Text);
+            bet = Int32.Parse(this.textBox1.Text);
+            bet_size += bet;
             this.label_err.Hide();
-            if (bet_size > this.points)
+            if (bet > this.points)
             {
                 this.label_err.Show();
 
@@ -242,16 +263,48 @@
             }
             else
             {
-                this.points -= bet_size;
+                this.points -= bet;
             }
             update();
         }
 
         private void stand_button_Click(object sender, EventArgs e)
         {
-            this.timer1.Start();
-            this.dealer_on = true;
+            this.button1.Hide();
+            if (bet_size > 0)
+            {
+                this.timer1.Start();
+                this.dealer_on = true;
+            }
+            else
+            {
+                this.label_bet_err.Show();
+            }
+            update();
 
         }
+        private void check_win()
+        {
+
+                if (this.dealer_score > 21)
+                {
+                    Form3 noweOkno2 = new Form3(this);
+                    noweOkno2.ShowDialog();
+                    points += bet_size * 2;
+                }
+                else if (this.hand_score <= this.dealer_score)
+                {
+                    Form2 noweOkno = new Form2(this);
+                    noweOkno.ShowDialog();
+                }
+                else if (this.hand_score > this.dealer_score)
+                {
+                    Form3 noweOkno2 = new Form3(this);
+                    noweOkno2.ShowDialog();
+                    points += bet_size * 2;
+                }
+            
+
+}
     }
 }
