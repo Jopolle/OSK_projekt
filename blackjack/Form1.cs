@@ -42,6 +42,19 @@
             Karta k2 = talia[Shuffle()];
             Karta d1 = talia[Shuffle()];
             zeruj();
+            if(k1.Punkty == 11)
+            {
+                this.ile_asow_gracz++;
+            }
+            if(k2.Punkty == 11)
+            {
+                this.ile_asow_gracz++;
+            }
+            if(d1.Punkty == 11)
+            {
+                this.ile_asow_dealer++;
+            }
+
 
 
 
@@ -56,8 +69,8 @@
             this.dealer6.Image = null;
 
 
-            reka.Add(k1);
-            reka.Add(k2);
+            //reka.Add(k1);
+            //reka.Add(k2);
             //
             //this.dealer1.Image = (Image)Properties.Resources.ResourceManager.GetObject(k1.ToStringName());
             //this.player1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k1.ToStringName());
@@ -95,7 +108,9 @@
             this.label_bet_err.Hide();
             this.timer1.Stop();
             this.button1.Show();
-            this.reka.Clear();
+            //this.reka.Clear();
+            this.ile_asow_gracz = 0;
+            this.ile_asow_dealer = 0;
             update();
         }
 
@@ -114,9 +129,13 @@
         {
             this.button1.Hide();
             this.label_bet_err.Hide();
-            if (bet_size > 0 && dealer_on!)
+            if (bet_size > 0)
             {
                 Karta k = talia[Shuffle()];
+                if(k.Punkty == 11)
+                {
+                    this.ile_asow_gracz++;
+                }
                 switch (card_counter)
                 {
 
@@ -125,7 +144,7 @@
                         this.player3.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                         this.hand_score += k.Punkty;
                         card_counter++;
-                        reka.Add(k);
+                        //reka.Add(k);
                         break;
                     case 3:
                         //this.player4.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
@@ -133,21 +152,21 @@
 
                         this.hand_score += k.Punkty;
                         card_counter++;
-                        reka.Add(k);
+                        //reka.Add(k);
                         break;
                     case 4:
                         //this.player5.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
                         this.player5.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                         this.hand_score += k.Punkty;
                         card_counter++;
-                        reka.Add(k);
+                        //reka.Add(k);
                         break;
                     case 5:
                         //this.player6.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
                         this.player6.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                         this.hand_score += k.Punkty;
                         card_counter++;
-                        reka.Add(k);
+                        //reka.Add(k);
                         break;
 
                 }
@@ -155,20 +174,22 @@
             else
             {
                 this.label_bet_err.Show();
+                this.button1.Show();
             }
-
-            //this.player1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
             update();
-            if (this.hand_score > 21)
+            //this.player1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+
+            if (this.hand_score > 21 && this.ile_asow_gracz>0)
+            {
+                this.ile_asow_gracz--;
+                this.hand_score -= 10;
+            }
+            else if (this.hand_score > 21 && this.ile_asow_gracz==0)
             {
                 Form2 noweOkno = new Form2(this);
                 noweOkno.ShowDialog();
             }
-            //else if (reka.Contains())
-            //{
-
-            //}
-            //this.label_score.Text = "Karta wywołana to: " + talia[34].ToString();
+            update();
         }
 
         private void pictureBox7_Click(object sender, EventArgs e)
