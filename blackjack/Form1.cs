@@ -219,6 +219,10 @@
                 if (dealer_score < 16)
                 {
                     Karta d = talia[Shuffle()];
+                    if(d.Punkty == 11)
+                    {
+                        this.ile_asow_dealer++;
+                    }
                     switch (this.timer_counter)
                     {
                         case 1:
@@ -259,6 +263,11 @@
                     check_win();
                 }
             }
+            if (this.dealer_score > 21 &&   this.ile_asow_dealer>0)
+            {
+                this.dealer_score -= 10;
+                this.ile_asow_dealer--;
+            }
             update();
 
         }
@@ -271,7 +280,7 @@
         private void button1_Click_1(object sender, EventArgs e)
         {
             bet = Int32.Parse(this.textBox1.Text);
-            bet_size += bet;
+            
             this.label_err.Hide();
             if (bet > this.points)
             {
@@ -284,6 +293,7 @@
             }
             else
             {
+                bet_size += bet;
                 this.points -= bet;
             }
             update();
@@ -309,9 +319,10 @@
 
                 if (this.dealer_score > 21)
                 {
+                    this.points += bet_size * 2;
                     Form3 noweOkno2 = new Form3(this);
                     noweOkno2.ShowDialog();
-                    points += bet_size * 2;
+                    
                 }
                 else if (this.hand_score <= this.dealer_score)
                 {
@@ -320,12 +331,13 @@
                 }
                 else if (this.hand_score > this.dealer_score)
                 {
+                    this.points += bet_size * 2;
                     Form3 noweOkno2 = new Form3(this);
                     noweOkno2.ShowDialog();
-                    points += bet_size * 2;
+                    
                 }
-            
 
+            update();
 }
     }
 }
