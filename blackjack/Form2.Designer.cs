@@ -37,11 +37,12 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 30F);
-            label1.Location = new Point(117, 120);
+            label1.Location = new Point(147, 120);
             label1.Name = "label1";
-            label1.Size = new Size(274, 67);
+            label1.Size = new Size(224, 67);
             label1.TabIndex = 0;
-            label1.Text = "You Busted";
+            label1.Text = "You Lose";
+            label1.Click += label1_Click;
             // 
             // button1
             // 
@@ -61,6 +62,7 @@
             button2.TabIndex = 2;
             button2.Text = "Cash Out";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // Form2
             // 

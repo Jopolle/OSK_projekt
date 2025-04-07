@@ -18,6 +18,8 @@
         private int dealer_score = 0;
         private bool win_lose = false;
         private int bet = 0;
+        private int ile_asow_gracz = 0;
+        private int ile_asow_dealer = 0;
         private bool isDigital = false;
 
         /// <summary>
