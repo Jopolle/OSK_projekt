@@ -310,6 +310,7 @@
             else
             {
                 this.label_bet_err.Show();
+                this.button1.Show();
             }
             update();
 
@@ -334,7 +335,7 @@
                     noweOkno2.ShowDialog();
                     points += bet_size * 2;
                 }
-            
+            update();
 
 }
 private void zegarToolStripMenuItem_Click(object sender, EventArgs e)
