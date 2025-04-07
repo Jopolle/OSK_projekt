@@ -69,8 +69,7 @@
             this.dealer6.Image = null;
 
 
-            //reka.Add(k1);
-            //reka.Add(k2);
+
             //
             //this.dealer1.Image = (Image)Properties.Resources.ResourceManager.GetObject(k1.ToStringName());
             //this.player1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k1.ToStringName());
@@ -144,7 +143,7 @@
                         this.player3.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                         this.hand_score += k.Punkty;
                         card_counter++;
-                        //reka.Add(k);
+                        
                         break;
                     case 3:
                         //this.player4.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
@@ -152,21 +151,21 @@
 
                         this.hand_score += k.Punkty;
                         card_counter++;
-                        //reka.Add(k);
+                        
                         break;
                     case 4:
                         //this.player5.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
                         this.player5.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                         this.hand_score += k.Punkty;
                         card_counter++;
-                        //reka.Add(k);
+                        
                         break;
                     case 5:
                         //this.player6.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
                         this.player6.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                         this.hand_score += k.Punkty;
                         card_counter++;
-                        //reka.Add(k);
+                        
                         break;
 
                 }
@@ -257,7 +256,7 @@
                             break;
                     }
                 }
-                else 
+                else
                 {
                     timer1.Stop();
                     check_win();
@@ -269,6 +268,7 @@
                 this.ile_asow_dealer--;
             }
             update();
+
 
         }
 
@@ -319,10 +319,9 @@
 
                 if (this.dealer_score > 21)
                 {
-                    this.points += bet_size * 2;
                     Form3 noweOkno2 = new Form3(this);
                     noweOkno2.ShowDialog();
-                    
+                    points += bet_size * 2;
                 }
                 else if (this.hand_score <= this.dealer_score)
                 {
@@ -331,13 +330,158 @@
                 }
                 else if (this.hand_score > this.dealer_score)
                 {
-                    this.points += bet_size * 2;
                     Form3 noweOkno2 = new Form3(this);
                     noweOkno2.ShowDialog();
-                    
+                    points += bet_size * 2;
                 }
+            
 
-            update();
 }
+private void zegarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void zegar_value_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // Timer do obsługi zegara
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            if (isDigital)
+            {
+                digital_value.Text = DateTime.Now.ToString("HH:mm:ss");
+                digital_value.Visible = true;
+                analog_value.Visible = false;
+            }
+            else
+            {
+                digital_value.Visible = false;
+                analog_value.Visible = true;
+                analog_value.Invalidate();
+            }
+        }
+
+        private void cyfrowyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            isDigital = true;
+        }
+
+        private void analogowyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            isDigital = false;
+        }
+
+        // Funkcja do rysowania zegara analogowego
+        private void analog_value_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            DateTime now = DateTime.Now;
+            int centerX = analog_value.Width / 2;
+            int centerY = analog_value.Height / 2;
+            int radius = Math.Min(centerX, centerY) - 5;
+
+            // Wypełnienie tarczy
+            using (Brush whiteBrush = new SolidBrush(Color.White))
+            {
+                g.FillEllipse(whiteBrush, centerX - radius, centerY - radius, radius * 2, radius * 2);
+            }
+
+            // Obramówka tarczy
+            using (Pen thickCircle = new Pen(Color.Black, 3.5f)) 
+            {
+                g.DrawEllipse(thickCircle, centerX - radius, centerY - radius, radius * 2, radius * 2);
+            }
+
+
+            // Rozmieszczenie kresek dookoła tarczy zegara
+            for (int i = 0; i < 12; i++)
+            {
+                double angle = Math.PI * i / 6;
+                int innerRadius = radius - 10;
+                int outerRadius = radius;
+
+                int x1 = centerX + (int)(innerRadius * Math.Sin(angle));
+                int y1 = centerY - (int)(innerRadius * Math.Cos(angle));
+                int x2 = centerX + (int)(outerRadius * Math.Sin(angle));
+                int y2 = centerY - (int)(outerRadius * Math.Cos(angle));
+
+                using (Pen tickPen = new Pen(Color.Black, 2f))
+                {
+                    g.DrawLine(tickPen, x1, y1, x2, y2);
+                }
+            }
+            
+            // Wykorzystanie funkcji do rysowania wszytskich wskazówek
+            DrawHand(g, now.Second * 6, radius - 10, Color.Red, 2f, centerX, centerY);                      // wskazowka sekundowa
+            DrawHand(g, now.Minute * 6, radius - 20, Color.Black, 3f, centerX, centerY);                    // wskazowka minutowa
+            DrawHand(g, now.Hour * 30 + now.Minute / 2, radius - 30, Color.Black, 3.5f, centerX, centerY);  // wskazowka godzinowa
+
+            using (Font font = new Font("Arial", 12, FontStyle.Bold))
+            using (Brush brush = new SolidBrush(Color.Black))
+            {
+                // Zapisywanie cyfer na cyferblacie
+                g.DrawString("12", font, brush, centerX - 13, centerY - radius + 10);              
+                g.DrawString("3", font, brush, centerX + radius - 24, centerY - 10);              
+                g.DrawString("6", font, brush, centerX - 7, centerY + radius - 28);              
+                g.DrawString("9", font, brush, centerX - radius + 10, centerY - 10);                
+            }
+        }
+
+        //Funkcja rysująca wskazowki zegara analogowego z zaleznosci trygonometrycznych
+        private void DrawHand(Graphics g, float angleDegrees, int length, Color color, float thickness, int cx, int cy)
+        {
+            double angleRad = Math.PI * angleDegrees / 180.0; // Zamiana ze stopni na radiany
+            // Obliczanie punktu końcowego linii ktora bedzie rysowana
+            int x = cx + (int)(length * Math.Sin(angleRad));  
+            int y = cy - (int)(length * Math.Cos(angleRad));
+            // Faktyczne rysowanie linii
+            using (Pen pen = new Pen(color, thickness))
+            {
+                g.DrawLine(pen, cx, cy, x, y);
+            }
+        }
+
+        private void zielonyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.BackgroundImage = Properties.Resources.stolik;
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void granatowyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            byte[] imageData = Properties.Resources.text_2;
+
+            using (MemoryStream ms = new MemoryStream(imageData))
+            {
+                this.BackgroundImage = Image.FromStream(ms);
+                this.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+        }
+
+        private void bordowyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            byte[] imageData = Properties.Resources.text_3;
+
+            using (MemoryStream ms = new MemoryStream(imageData))
+            {
+                this.BackgroundImage = Image.FromStream(ms);
+                this.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+        }
     }
 }
