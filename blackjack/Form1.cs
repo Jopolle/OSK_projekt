@@ -42,6 +42,7 @@
             Karta k2 = talia[Shuffle()];
             Karta d1 = talia[Shuffle()];
             zeruj();
+
             if(k1.Punkty == 11)
             {
                 this.ile_asow_gracz++;
@@ -55,9 +56,6 @@
                 this.ile_asow_dealer++;
             }
 
-
-
-
             this.player3.Image = null;
             this.player4.Image = null;
             this.player5.Image = null;
@@ -70,25 +68,18 @@
 
 
 
-            //
-            //this.dealer1.Image = (Image)Properties.Resources.ResourceManager.GetObject(k1.ToStringName());
-            //this.player1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k1.ToStringName());
             this.player1.Image = (Image)Properties.Resources.ResourceManager.GetObject(k1.ToStringName());
             this.hand_score += k1.Punkty;
             this.card_counter++;
-            //this.player2.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k2.ToStringName());
-            this.player2.Image = (Image)Properties.Resources.ResourceManager.GetObject(k2.ToStringName());
 
+            this.player2.Image = (Image)Properties.Resources.ResourceManager.GetObject(k2.ToStringName());
             this.hand_score += k2.Punkty;
             this.card_counter++;
 
-
-            //this.dealer2.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + d1.ToStringName());
             this.dealer2.Image = (Image)Properties.Resources.ResourceManager.GetObject(d1.ToStringName());
             this.dealer_counter++;
             this.timer_counter++;
             this.dealer_score += d1.Punkty;
-            //this.dealer1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\rewers.png");
             this.dealer1.Image = Properties.Resources.rewers;
 
             update();
@@ -107,22 +98,11 @@
             this.label_bet_err.Hide();
             this.timer1.Stop();
             this.button1.Show();
-            //this.reka.Clear();
             this.ile_asow_gracz = 0;
             this.ile_asow_dealer = 0;
             update();
         }
 
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void hit_button_Click(object sender, EventArgs e)
         {
@@ -139,14 +119,14 @@
                 {
 
                     case 2:
-                        //this.player3.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+
                         this.player3.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                         this.hand_score += k.Punkty;
                         card_counter++;
                         
                         break;
                     case 3:
-                        //this.player4.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+
                         this.player4.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
 
                         this.hand_score += k.Punkty;
@@ -154,14 +134,14 @@
                         
                         break;
                     case 4:
-                        //this.player5.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+
                         this.player5.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                         this.hand_score += k.Punkty;
                         card_counter++;
                         
                         break;
                     case 5:
-                        //this.player6.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
+
                         this.player6.Image = (Image)Properties.Resources.ResourceManager.GetObject(k.ToStringName());
                         this.hand_score += k.Punkty;
                         card_counter++;
@@ -176,7 +156,6 @@
                 this.button1.Show();
             }
             update();
-            //this.player1.Load("C:\\Users\\pawel\\source\\repos\\blackjack\\bin\\cards\\" + k.ToStringName());
 
             if (this.hand_score > 21 && this.ile_asow_gracz>0)
             {
@@ -191,25 +170,13 @@
             update();
         }
 
-        private void pictureBox7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void deal_Click(object sender, EventArgs e)
         {
             rozdaj();
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -320,9 +287,10 @@
 
                 if (this.dealer_score > 21)
                 {
+                    points += bet_size * 2;
                     Form3 noweOkno2 = new Form3(this);
                     noweOkno2.ShowDialog();
-                    points += bet_size * 2;
+
                 }
                 else if (this.hand_score <= this.dealer_score)
                 {
@@ -331,9 +299,10 @@
                 }
                 else if (this.hand_score > this.dealer_score)
                 {
+                    points += bet_size * 2;
                     Form3 noweOkno2 = new Form3(this);
                     noweOkno2.ShowDialog();
-                    points += bet_size * 2;
+                    
                 }
             update();
 

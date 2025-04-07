@@ -153,7 +153,6 @@
             dealer1.SizeMode = PictureBoxSizeMode.StretchImage;
             dealer1.TabIndex = 5;
             dealer1.TabStop = false;
-            dealer1.Click += pictureBox1_Click;
             // 
             // dealer2
             // 
@@ -220,7 +219,6 @@
             player2.SizeMode = PictureBoxSizeMode.StretchImage;
             player2.TabIndex = 10;
             player2.TabStop = false;
-            player2.Click += pictureBox7_Click;
             // 
             // player1
             // 
@@ -295,7 +293,6 @@
             label_chips.Size = new Size(86, 15);
             label_chips.TabIndex = 18;
             label_chips.Text = "Your chips: 100";
-            label_chips.Click += label2_Click;
             // 
             // timer1
             // 
@@ -481,6 +478,7 @@
             Controls.Add(stand_button);
             Controls.Add(hit_button);
             Controls.Add(menuStrip1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "Form1";
